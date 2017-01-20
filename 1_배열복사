@@ -1,0 +1,45 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_1_배열복사{
+	static int A[];
+	static int B[];
+	static int N;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_1_배열복사"));
+		Scanner sc = new Scanner(System.in);
+
+		N = sc.nextInt();
+		A = new int[N];
+		B = new int[N];
+
+		for (int i = 0; i < N; i++) {
+			A[i] = sc.nextInt();
+		}
+
+		arr_copy(0, N);
+		print_arr();
+
+	}
+
+	public static void arr_copy(int pos, int k) {
+		if (pos == k) {
+			
+			return;
+
+		} else {
+
+			B[pos] = A[pos];
+			arr_copy(pos + 1, k);
+			
+		}
+	}
+	
+	public static void print_arr(){
+		for (int i = 0; i < N; i++) {
+			System.out.println(B[i]);
+		}
+	}
+}

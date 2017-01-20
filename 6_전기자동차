@@ -1,0 +1,49 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_6_전기자동차 {
+	static int A[];
+	static int B[];
+	static int N, k, T, min;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_6_전기자동차"));
+		Scanner sc = new Scanner(System.in);
+
+		T = sc.nextInt();
+		for (int test_case = 1; test_case <= T; test_case++) {
+
+			N = sc.nextInt();
+			B = new int[N - 1];
+			min = Integer.MAX_VALUE;
+
+			for (int i = 0; i < N - 1; i++) {
+				B[i] = sc.nextInt();
+			}
+
+			check(1, N - 1, B[0] - 1, 0);
+			System.out.println("#" + test_case + " " +min);
+
+		}
+	}
+
+	public static void check(int pos, int k, int val, int cnt) {
+
+		if (pos == k) {
+
+			min = Math.min(min, cnt);
+			return;
+		} else {
+			
+			if(val > 0){
+				check(pos + 1, k, val - 1, cnt);
+			}
+			
+			//check(pos + 1, k, val - 1, cnt);
+			
+			check(pos + 1, k, B[pos] - 1, cnt + 1);
+
+		}
+	}
+}

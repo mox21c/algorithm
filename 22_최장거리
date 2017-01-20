@@ -1,0 +1,123 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Solution_22_최장거리 {
+	static int V, E, count, max;
+	static int adj[][], maxlen[], sol[], ind[], l[];
+
+	public static void main(String args[]) throws FileNotFoundException {
+		System.setIn(new FileInputStream("src/resource/Solution_22_최장거리"));
+		Scanner sc = new Scanner(System.in);
+
+		int T = sc.nextInt();
+		for (int tc = 1; tc <= T; tc++) {
+
+			V = sc.nextInt();
+			E = sc.nextInt();
+
+			adj = new int[V + 1][V + 1];
+			maxlen = new int[V + 1];
+			ind = new int[V + 1];
+
+			max = Integer.MIN_VALUE;
+
+			for (int i = 0; i < E; i++) {
+
+				int n1 = sc.nextInt();
+				int n2 = sc.nextInt();
+
+				adj[n1][n2] = sc.nextInt();
+				ind[n2]++;
+			}
+
+			for (int j = 0; j <= V; j++) {
+				System.out.print(ind[j] + " ");
+			}
+
+			check1();
+			System.out.println("#"+tc+" "+maxlen[V]);
+		}
+
+	}
+	
+	public static void check(){
+		int q[] = new int[V*V];
+		int front = -1;
+		int rear = -1;
+		
+		for(int i = 0 ; i <=V ; i++){
+			if(ind[i] == 0){
+				q[++rear] = i;
+			}
+		}
+		
+		while(front!=rear){
+			int t = q[++front];
+			int max = 0;
+			
+			for(int i = 0 ; i <= V ; i++){
+				if(adj[i][t] != 0){
+					if(maxlen[i]+adj[i][t] > max){
+						max = maxlen[i] + adj[i][t];
+					}
+				}
+			}
+			
+			maxlen[t] = max;
+			
+			for(int i = 0 ; i <= V ; i++){
+				if(adj[t][i] != 0){
+					ind[i]--;
+					if(adj[t][i]!=0){
+						ind[i]--;
+						if(ind[i]==0){// i의 진입차수가 0이 되면 enQ()
+							q[++rear] = i;
+						}
+					}
+					
+				}
+			}
+		}
+	
+	}
+	
+	public static void check1(){
+		
+		Queue<Integer> q = new LinkedList<>();
+		
+		for(int i = 0 ; i <= V ; i++){
+			if(ind[i] == 0){
+				q.add(i);
+			}
+		}
+		while(q.isEmpty()){
+			int t = q.poll();
+			int max = 0;
+			
+			for(int i = 0 ; i <= V ; i++){
+				if(adj[i][t] != 0){
+					if(maxlen[i] + adj[i][t] > max){
+						max = maxlen[i] + adj[i][t];
+					}
+				}
+			}
+			
+			maxlen[t] = max;
+			
+			for(int i = 0 ; i <= V ; i++){
+				if(adj[t][i] != 0){
+					ind[t]--;
+					if(adj[t][i]!=0){
+						ind[i]--;
+						if(ind[i]==0){// i의 진입차수가 0이 되면 enQ()
+							q.add(i);
+						}
+					}
+				}
+			}
+		}
+	}
+}

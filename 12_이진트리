@@ -1,0 +1,75 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_12_이진트리 {
+	static int c1[], c2[], par[];
+
+	static int N, k, f, T, min;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_12_이진트리"));
+		Scanner sc = new Scanner(System.in);
+
+		int V = sc.nextInt();
+		int E = sc.nextInt();
+		c1 = new int[V + 1];
+		c2 = new int[V + 1];
+		par = new int[V + 1];
+		
+		for (int i = 0; i < E; i++) {
+			int n1 = sc.nextInt();
+			int n2 = sc.nextInt();
+
+			// 부모를 인덱스로 자식을 저장......
+			if (c1[n1] == 0) {
+				c1[n1] = n2;// 첫번째 자식
+			} else {
+				c2[n1] = n2;// 자식이 두개인경우
+			}
+
+			par[n2] = n1;
+		}
+
+		DLR(1); // root가 1이고 1번부터 순회하는 경우......
+		System.out.println();
+		LDR(1);
+		System.out.println();
+		LRD(1);
+	}
+
+	public static void DLR(int n) {
+
+		if (n != 0) {
+			//전위순회
+			System.out.print(n + " ");
+			DLR(c1[n]);
+			DLR(c2[n]);
+		}
+
+	}
+
+	public static void LDR(int n) {
+
+		if (n != 0) {
+			
+			LDR(c1[n]);
+			//중위 순회
+			System.out.print(n + " ");
+			LDR(c2[n]);
+		}
+
+	}
+	
+	public static void LRD(int n) {
+
+		if (n != 0) {
+			
+			LRD(c1[n]);
+			LRD(c2[n]);
+			//후위순회
+			System.out.print(n + " ");
+		}
+
+	}
+}

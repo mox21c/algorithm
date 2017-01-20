@@ -1,0 +1,110 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_13_이진트리조상과자손 {
+	static int c1[], c2[], par[];
+
+	static int k, f, T, min, count;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_13_이진트리조상과자손"));
+		Scanner sc = new Scanner(System.in);
+		
+		T = sc.nextInt();
+		
+		for(int tc = 1 ; tc <= T ; tc++){
+			int E = sc.nextInt();
+			int N = sc.nextInt();
+			c1 = new int[E + 2];
+			c2 = new int[E + 2];
+			
+			par = new int[E + 2];
+			count = 0;
+			
+			for (int i = 0 ; i < E; i++) {
+				int n1 = sc.nextInt();
+				int n2 = sc.nextInt();
+
+				// 부모를 인덱스로 자식을 저장......
+				if (c1[n1] == 0) {
+					c1[n1] = n2;// 첫번째 자식
+				} else {
+					c2[n1] = n2;// 자식이 두개인경우
+				}
+				
+				par[n2] = n1;
+			}
+			
+			int par_count = searchPar(N);
+			DLR(N);
+			System.out.println("#" + tc + " " + par_count + " " + --count);
+		}
+
+		
+		
+
+		/*DLR(1); // root가 1이고 1번부터 순회하는 경우......
+		System.out.println();
+		LDR(1);
+		System.out.println();
+		LRD(1);*/
+	}
+	
+	public static int searchPar(int n){
+		int cnt = 0;
+		
+		while(par[n] != 0){
+			cnt++;
+			n = par[n];
+		}
+		/*while(true){
+			
+			if(par[n] != 0){
+				cnt++;
+				n = par[n];
+			
+			}else{
+				break;
+			}
+		}*/
+		//System.out.println(cnt);
+		return cnt;
+	}
+
+	public static void DLR(int n) {
+
+		if (n != 0) {
+			//전위순회
+			count++;
+			//System.out.print(n + " ");
+			DLR(c1[n]);
+			DLR(c2[n]);
+		}
+
+	}
+
+	public static void LDR(int n) {
+
+		if (n != 0) {
+			
+			LDR(c1[n]);
+			//중위 순회
+			System.out.print(n + " ");
+			LDR(c2[n]);
+		}
+
+	}
+	
+	public static void LRD(int n) {
+
+		if (n != 0) {
+			
+			LRD(c1[n]);
+			LRD(c2[n]);
+			//후위순회
+			System.out.print(n + " ");
+		}
+
+	}
+}

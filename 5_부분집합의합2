@@ -1,0 +1,59 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_5_부분집합의합2 {
+	static int A[];
+	static int B[];
+	static int visit[];
+	static int n, k, T, count;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_5_부분집합의합2"));
+		Scanner sc = new Scanner(System.in);
+
+		T = sc.nextInt();
+		for (int test_case = 1; test_case <= T; test_case++) {
+			n = sc.nextInt();
+			k = sc.nextInt();
+
+			A = new int[n];
+			visit = new int[n];
+
+			check(0, 0);
+			System.out.println(count);
+
+		}
+		
+		int sum = 0;
+		for(int i = 1 ; i <= 100 ; i++){
+			sum += i;
+		}
+		
+		System.out.println(sum);
+	}
+
+	public static void check(int pos, int val) {
+
+		if (pos == n) {
+			return;
+		} else {
+
+			if (visit[pos] == 0) {
+				
+				if(val <= k){
+					if (val == k) {
+						count++;
+					}
+					visit[pos] = 1;
+					val = val + pos + 1;
+					check(pos + 1, val);
+					val = val - pos - 1;
+					visit[pos] = 0;
+				}
+
+			}
+
+		}
+	}
+}

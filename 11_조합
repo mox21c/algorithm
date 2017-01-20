@@ -1,0 +1,37 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_11_조합 {
+	static int a[] = {1, 2, 3}, c[];
+	static int B[], visit[], p[];
+
+	static int N, k, f, T, min;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_10_최소이동거리"));
+		Scanner sc = new Scanner(System.in);
+		
+		c = new int[2];
+
+		combination(3, 2, 2);
+
+	}
+
+	public static void combination(int n, int k, int m) {
+		if(k == 0){
+			for(int i = 0 ; i < m ; i++){
+				System.out.print(c[i] + " ");
+			}
+			System.out.println();
+		}else if(n < k){
+			return;
+		}else{
+			c[k-1] = a[n-1];
+			combination(n-1, k-1, m);
+			combination(n-1, k, m);
+		}
+
+
+	}
+}

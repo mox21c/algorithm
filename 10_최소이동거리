@@ -1,0 +1,60 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_10_최소이동거리 {
+	static int A[][];
+	static int B[], visit[];
+
+	static int N, k, f, T, min ,cnt;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_10_최소이동거리"));
+		Scanner sc = new Scanner(System.in);
+
+		T = sc.nextInt();
+
+		for (int tc = 1; tc <= T; tc++) {
+			N = sc.nextInt();
+			A = new int[N][N];
+			visit = new int[N];
+			min = Integer.MAX_VALUE;
+			cnt = 0;
+
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < N; j++) {
+					A[i][j] = sc.nextInt();
+				}
+			}
+
+			perm(0, 0, 0);
+			System.out.println("#" + tc + " " + min);
+
+		}
+
+	}
+
+	public static void perm(int pos, int sum, int m) {
+		if (pos == N - 1) {
+			//cnt++;
+			sum = sum + A[m][0];
+			min = Math.min(min, sum);
+			return;
+		} else {
+			for (int i = 1; i < N; i++) {
+				if (pos != i) {
+
+					if (visit[i] == 0) {
+
+						visit[i] = 1;
+						sum = sum + A[m][i];
+						perm(pos + 1, sum, i);
+						sum = sum - A[m][i];
+						visit[i] = 0;
+
+					}
+				}
+			}
+		}
+	}
+}

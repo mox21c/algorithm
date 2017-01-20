@@ -1,0 +1,48 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
+public class Main_Nqueen {
+	
+	static int sol[];
+	static int visit[];
+	
+	public static void main(String[] args) throws FileNotFoundException{
+		System.setIn(new FileInputStream("src/resource/Main_Nqueen"));
+		Scanner sc = new Scanner(System.in);
+		
+		int n = sc.nextInt();
+		
+		sol = new int[n];
+		visit = new int[n];
+		dfs(0,n);
+	}
+	
+	public static void dfs(int n, int k){
+		//System.out.println("=============");
+		if(n == k){
+			System.out.println("======");
+			return;
+			
+		}else{
+			
+			loof : for(int i = 0 ; i < k ; i++){
+				
+				if(visit[i] == 0){
+					
+					for(int j = 0 ; j < n ; j++){
+						if(Math.abs(j-n) == Math.abs(sol[j]-i)){
+							continue loof;
+						}
+						
+					}
+					sol[n] = i;
+					visit[i] = 1;
+					dfs(n+1,k);
+					visit[i] = 0;
+				}
+			}
+		}
+		
+	}
+}

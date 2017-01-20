@@ -1,0 +1,52 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_5_부분집합의합 {
+	static int A[];
+	static int B[];
+	static int n,k,T,count;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_5_부분집합의합"));
+		Scanner sc = new Scanner(System.in);
+
+		T = sc.nextInt();
+		for(int test_case = 1 ; test_case <= T ; test_case++){
+			n = sc.nextInt();
+			k = sc.nextInt();
+			count = 0;
+			A = new int[n];
+			
+			check(0);
+			System.out.print("#"+ test_case + " ");
+			System.out.println(count);
+		}
+	}
+	
+	public static void check(int pos){
+		
+		if(pos == n){
+			int sum = 0;
+			
+			for(int i = 0 ; i < n ; i++){
+				if(A[i] == 1){
+					sum = sum + i + 1;
+				}
+			}
+			
+			if(sum == k){
+				count++;
+			}
+			
+			return;
+		}else{
+			
+			for(int i = 0 ; i < 2 ; i++){
+				A[pos] = i;
+				check(pos+1);
+			}
+		}
+	}
+	
+}

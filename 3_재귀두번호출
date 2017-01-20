@@ -1,0 +1,42 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_3_재귀두번호출 {
+	static int A[];
+	static int B[];
+	static int N;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_3_재귀두번호출"));
+		Scanner sc = new Scanner(System.in);
+
+		N = sc.nextInt();
+		A = new int[N];
+		dfs(0);
+	
+	}
+
+	public static void dfs(int pos) {
+		if(pos == N){
+			for(int i = 0 ; i < N ; i++){
+				System.out.print(A[i] + " ");
+			}
+			System.out.println();
+			return;
+		}else{
+			
+			for(int i = 0 ; i < 2 ; i++){
+				A[pos] = i;
+				dfs(pos+1);
+			}
+			
+			
+			/*A[pos] = 0;
+			dfs(pos+1);
+			
+			A[pos] = 1;
+			dfs(pos+1);*/
+		}
+	}
+}

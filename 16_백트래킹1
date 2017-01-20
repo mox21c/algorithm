@@ -1,0 +1,56 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_16_백트래킹1 {
+	static int[][] t;
+	static int[] p;
+	static int[] used;
+	static int[] A;
+	static int min, cnt;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_16_백트래킹1"));
+		Scanner sc = new Scanner(System.in);
+
+		int T = sc.nextInt();
+
+		for (int tc = 1; tc <= T; tc++) {
+			int len = sc.nextInt();
+			int c = sc.nextInt();
+			A = new int[c];
+			cnt = 0;
+			used = new int[len];
+
+			for (int i = 0; i < c; i++) {
+				A[i] = sc.nextInt();
+			}
+
+			back(0, c, len);
+			System.out.println("#" + tc + " " + cnt);
+
+		}
+	}
+
+	public static void back(int n, int c, int len) {
+		// System.out.println(n);
+		if (n == len) {
+			cnt++;
+			return;
+		} else if(n < 0 || n > len){
+			return;
+		} else if(used[n] == 1){
+			return;
+		}else {
+			used[n] = 1;
+			
+			for (int i = 0; i < c; i++) {
+				
+				back(n - A[i], c, len);
+				
+				back(n + A[i], c, len);
+				
+			}
+		}
+	}
+}

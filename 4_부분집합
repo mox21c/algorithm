@@ -1,0 +1,59 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_4_부분집합 {
+	static int A[];
+	static int B[];
+	static int N;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_4_부분집합"));
+		Scanner sc = new Scanner(System.in);
+
+		N = sc.nextInt();
+		A = new int[N];
+		B = new int[N];
+		
+		/*for(int i = 0 ; i < N ;i++){
+			B[i] = sc.nextInt();
+		}*/
+		dfs(0);
+	
+	}
+
+	public static void dfs(int pos) {
+		if(pos == N){
+			
+			/*for(int i = 0 ; i < N ; i++){
+				
+				if(A[i] == 1){
+					
+					System.out.print(B[i] + " ");
+					
+				}else{
+					
+					System.out.print("0 ");
+				}
+			}*/
+			for(int i = 0 ; i < N ; i++){
+				System.out.print(A[i]);
+			}
+			
+			System.out.println();
+			return;
+		}else{
+			
+			for(int i = 0 ; i <= 1 ; i++){
+				A[pos] = i;
+				dfs(pos+1);
+			}
+			
+			/*A[pos] = 0;
+			dfs(pos+1);
+			
+			A[pos] = 1;
+			dfs(pos+1);*/
+		}
+	}
+}

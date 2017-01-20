@@ -1,0 +1,78 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Solution_9_순열_조합 {
+	static int A[];
+	static int B[], visit[],used[];
+	static int arr[] = { 1, 2, 3 };
+	static int arr1[] = { 1, 2, 3, 4, 5 };
+	static int N, k, f, T, min;
+
+	public static void main(String[] args) throws Exception {
+
+		System.setIn(new FileInputStream("src/resource/Solution_9_순열_조합"));
+		Scanner sc = new Scanner(System.in);
+
+		N = sc.nextInt();
+		A = new int[N];
+		used = new int[N];
+
+		perm(0, N);
+		System.out.println("============");
+
+		T = sc.nextInt();
+		A = new int[N];
+		used = new int[T];
+		//perm(0,N);
+		//perm1(0, N, T);
+
+	}
+
+	public static void perm(int pos, int k) {
+
+		if (pos == k) {
+
+			for (int i = 0; i < N; i++) {
+				System.out.print(A[i] + " ");
+			}
+			System.out.println();
+
+		} else {
+			//used[pos] = 1;
+			for (int i = 0; i < k; i++) {
+				if (used[i] == 0) {
+					used[i] = 1;
+					A[pos] = arr[i];
+					perm(pos + 1, k);
+					used[i] = 0;
+				}
+			}
+			//used[pos] = 0;
+		}
+	}
+
+	public static void perm1(int pos, int k, int m) {
+		if (pos == k) {
+
+			for (int i = 0; i < N; i++) {
+				System.out.print(A[i] + " ");
+			}
+			System.out.println();
+
+		} else {
+
+			for (int i = 0; i < m; i++) {
+				
+				if (visit[i] == 0) {
+					visit[i] = 1;
+					A[pos] = arr1[i];
+					perm1(pos + 1, k, m);
+					
+					visit[i] = 0;
+				}
+			}
+
+		}
+
+	}
+}

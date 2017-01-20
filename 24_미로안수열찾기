@@ -1,0 +1,85 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Solution_24_미로안수열찾기 {
+	static int val[];
+	static int map[][], visit[][];
+	static int row, col, min, cnt, end, N;
+	static int dr[] = {-1,1,0,0};
+	static int dc[] = {0,0,-1,1};
+	public static void main(String[] args) throws FileNotFoundException{
+		System.setIn(new FileInputStream("src/resource/Solution_24_미로안수열찾기"));
+		Scanner sc = new Scanner(System.in);
+		
+		int T = sc.nextInt();
+		
+		for(int tc = 1 ; tc <= T ; tc++){
+			end = sc.nextInt();
+			val = new int[end];
+			for(int i = 0 ; i < end ; i++){
+				val[i] = sc.nextInt();
+			}
+			
+			N = sc.nextInt();
+			map = new int[N][N];
+			visit = new int[N][N];
+			
+			for(int i = 0 ; i < N ; i++){
+				for(int j = 0 ; j < N ; j++){
+					map[i][j] = sc.nextInt();
+				}
+			}
+			int r = 0;
+			for(int i = 0 ; i < N ; i++){
+				for(int j = 0 ; j < N ; j++){
+					if(map[i][j] == val[0]){
+						r = find(i,j,1);
+						if(r == 1){
+							break;
+						}
+					}
+					if(r == 1){
+						break;
+					}
+				}
+				if(r == 1){
+					break;
+				}
+			}
+			System.out.println(r);
+		}
+	}
+	
+	public static int find(int r, int c,int pos){
+		
+		if(pos == end){
+			return 1;
+		}else{
+			int search = val[pos];
+			visit[r][c] = 1;
+			
+			for(int i = 0 ; i < 4 ;i++){
+				
+				int nr = r + dr[i];
+				int nc = c + dc[i];
+				
+				if(nr >= 0  && nc >= 0 && nr < N && nc <N){
+					if(visit[nr][nc] == 0){
+						if(map[nr][nc] == search){
+							if(find(nr,nc,pos+1) == 1){
+								return 1;
+							}
+						}
+					}
+					
+				}
+			}
+			visit[r][c] = 0;
+		}
+		return 0;
+	}
+	
+}

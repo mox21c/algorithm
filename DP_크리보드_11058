@@ -1,0 +1,30 @@
+public class DP_크리보드_11058 {
+	static long[] d = new long[1001];
+    public static void main(String args[]) {
+    	
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        
+        for (int i=0; i<=6; i++) {
+            d[i] = i;
+        }
+        
+        int i = 6;
+        while(i++ < n){
+        	
+        	for(int j = 1 ; i-j-2 >= 0 ; j++){
+        		long cur = d[i-j-2]*(j+1);
+        		System.out.println("i = " + i + " j = " + j + " cur = " + cur);
+        		if (cur > d[i]) {
+                    d[i] = cur;
+                }
+        	}
+        	
+        	
+        }
+        
+        System.out.println(d[n]);
+       
+    }
+
+}

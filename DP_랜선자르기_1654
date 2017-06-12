@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+public class Main {
+	static int K, N;
+	static long A[], ans;
+	
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        K = sc.nextInt();
+        N = sc.nextInt();
+        A = new long[K];
+        long max = 0;
+        for (int i=0; i<K; i++) {
+            A[i] = sc.nextLong();
+            max = Math.max(max, A[i]);
+        }
+        binarySearch(1, max);
+        
+        System.out.println(ans);
+    }
+    
+    public static void binarySearch(long start, long end){
+    	if(start > end) return;
+    	
+    	long mid = (start + end) / 2;
+    	
+    	if(chk(mid)){
+    		ans = Math.max(ans, mid);
+    		binarySearch(mid+1, end);
+    	}else{
+    		binarySearch(start, mid-1);
+    	}
+    	
+    }
+    
+    public static boolean chk(long mid){
+    	int cnt = 0;
+        for (int i=0; i< K; i++) {
+            cnt += A[i]/mid;
+        }
+        return cnt >= N;
+    }
+	
+}
+

@@ -1,0 +1,39 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
+
+public class Main {
+	static int a[], d[];
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int n = Integer.parseInt(st.nextToken());
+		a = new int[n+1];
+		d = new int[n+1];
+		
+		for(int i = 1 ; i <= n ; i++){
+			st = new StringTokenizer(br.readLine());
+			a[i] = Integer.parseInt(st.nextToken());
+		}
+		
+		for (int i = 1; i < 3 && i <= n; i++){
+	        if (i == 1)
+	            d[i] = a[i];
+	        else
+	            d[i] = a[i] + a[i - 1];
+	    }
+
+
+		for(int i = 3 ; i <= n ; i++){
+			int result = 0;
+	        result = Math.max(a[i] + d[i - 2], d[i - 1]);
+	        d[i] = Math.max(result , a[i] + a[i-1] + d[i-3]);
+	        
+		}
+		
+		System.out.println(d[n]);
+		
+	}
+}
+

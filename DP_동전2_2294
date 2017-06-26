@@ -4,22 +4,52 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class DP_동전2_2294 {
 	static int a[],d[];
 	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		Scanner sc = new Scanner(System.in);
+
+		int N = sc.nextInt();
+		int K = sc.nextInt();
+
+		int c[] = new int[N];
+		for (int i = 0; i < N; i++)
+			c[i] = sc.nextInt();
+
+		int d[] = new int[K + 1];
+		Arrays.fill(d, -1);
+		d[0] = 0;
+
+		for (int i = 1; i <= K; i++)
+			for (int j = 0; j < N; j++) {
+				if (i - c[j] < 0)
+					continue;
+				if (d[i - c[j]] < 0)
+					continue;
+				if (d[i] < 0)
+					d[i] = d[i - c[j]] + 1;
+				else
+					d[i] = Math.min(d[i], d[i - c[j]] + 1);
+			}
+
+		System.out.println(d[K]);
+		/*BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
 		int n = Integer.parseInt(st.nextToken());
 		int k = Integer.parseInt(st.nextToken());
 		
-		a = new int[n+1];
-		d = new int[k+1];
+		a = new int[101];
+		d = new int[10001];
 		
-		Arrays.fill(d, 1000000);
+		Arrays.fill(d, Integer.MAX_VALUE - 1);
+		
 		d[0] = 0;
+		//System.out.println(Arrays.toString(d));
 		
 		for(int i = 1 ; i <= n ; i++){
 			st = new StringTokenizer(br.readLine());
@@ -30,12 +60,17 @@ public class DP_동전2_2294 {
 			for(int j = a[i] ; j <= k ;j++){
 				d[j] = Math.min(d[j], d[j-a[i]] + 1);
 			}
+			//System.out.println(Arrays.toString(d));
 		}
+		if(d[k] > Integer.MAX_VALUE - 10){
+			System.out.println(-1);
+		}else{
+			System.out.println(d[k]);
+		}*/
 		
-		System.out.println(d[k]);
+
+		
 	}
-
 }
-
 
 
